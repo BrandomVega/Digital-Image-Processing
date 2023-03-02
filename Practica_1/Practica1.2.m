@@ -30,7 +30,7 @@ roja(:,:,2)=0;
 roja(:,:,3)=0;
 subplot(2,3,4)
 imshow(roja)
-%verde
+%green
 verde=a;
 verde(:,:,1)=0;
 verde(:,:,2);
