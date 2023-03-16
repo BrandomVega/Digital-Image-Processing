@@ -1,13 +1,3 @@
-% AUTHORS
-%     TUD 
-%     PHIL
-%     EMI
-% 
-
-% It might find wrong values, if its a 3 class image, it might get 4 
-%     rgb pixels. Some solutions are: delete the image, run and put the image
-%     again; or simply just run the program again
-
 close all all
 warning off
 
@@ -15,19 +5,10 @@ warning off
 a=imread("imagen.png");
 [m,n]=size(a);
 
-puntos = input("Cuanta precision quieres: Soy neurotico ponle toda(1), media(2), no me importa(3): ","s");
-switch puntos
-    case "1"
-        precision = 100;
-    case "2"
-        precision = 30;
-    case "3"
-        precision = 15;
-end
 
 %Obtiene numeros aleatorios dada las medidas de la imagen
-row = randi(size(a, 1), precision, 1);  
-col = randi(size(a, 1), precision, 1);  
+row = randi(size(a, 1), 50, 1);  
+col = randi(size(a, 1), 50, 1);  
 
 
 
@@ -114,16 +95,22 @@ average_c3=average_c3';
 continueHandler = "y";
 while continueHandler == "y"
     [x,y,unknown]=impixel(a);
-   
-    % Graficando los datos de las clases
-    %plot3(c1(1,:),c1(2,:),c1(3,:),'ro','MarkerSize',10,'MarkerFaceColor','r')
-    grid on
-    hold on
-    %plot3(c2(1,:),c2(2,:),c2(3,:),'bo','MarkerSize',10,'MarkerFaceColor','b')
-    %plot3(c3(1,:),c3(2,:),c3(3,:),'yo','MarkerSize',10,'MarkerFaceColor','y')
-    %legend('NEGRO', 'ROJO', 'AMARILLO','PUNTO')
     desconocido=[ unknown(:,1)'; unknown(:,2)'; unknown(:,3)'];
-    %plot3(desconocido(1,:),desconocido(2,:),desconocido(3,:),'ko','MarkerSize',10,'MarkerFaceColor','k')
+    % Graficando los datos de las clases
+    
+    plot3(c1(1,:),c1(2,:),c1(3,:),'ko','MarkerSize',10,'MarkerFaceColor','c')
+    hold on
+    grid on
+    plot3(c2(1,:),c2(2,:),c2(3,:),'ko','MarkerSize',10,'MarkerFaceColor','g')
+    hold on
+    plot3(c3(1,:),c3(2,:),c3(3,:),'ko','MarkerSize',10,'MarkerFaceColor','m')
+    hold on
+    plot3(unknown(:,1)',unknown(:,2)',112','ko','MarkerSize',10,'MarkerFaceColor','k')
+    view(3);
+    legend('c1', 'c2', 'c3', 'Punto')
+    
+%     plot3(desconocido(1,:),desconocido(2,:),desconocido(3,:),'ko','MarkerSize',10,'MarkerFaceColor','k')
+%     legen('PUNTO')
 
     distance_c1 = ((average_c1(1,:)- desconocido(1,:))^2 + (average_c1(2,:)- desconocido(2,:))^2 + (average_c1(3,:)- desconocido(3,:))^2)^(1/2);
     distance_c2 = ((average_c2(1,:)- desconocido(1,:))^2 + (average_c2(2,:)- desconocido(2,:))^2 + (average_c2(3,:)- desconocido(3,:))^2)^(1/2);
@@ -131,10 +118,13 @@ while continueHandler == "y"
     disp("The unknown point, points at: ")
     if distance_c1 < distance_c2 & distance_c1 < distance_c3
         disp(">>>>>>>>>La clase 1     (☞ﾟヮﾟ)☞")
+        disp(c1(:,1))
     elseif distance_c2 < distance_c1 & distance_c2 < distance_c3
         disp(">>>>>>>>>La clase 2     (⌐■_■)")
+        disp(c2(:,1))
     else
         disp(">>>>>>>>>La clase 3        ╰(*°▽°*)╯")
+        disp(c3(:,1))
     end
      
     continueHandler = input("Do you want to continue? [y/n]","s");
@@ -144,11 +134,11 @@ while continueHandler == "y"
 end
 %Uncomment if want to see the points selected at the begining of the file
 
-% figure(2)
-% imshow(a);
-% axis on
-% hold on;
-% plot(row,col, '.', 'MarkerSize', 30, 'LineWidth', 2);
+figure(2)
+imshow(a);
+axis on
+hold on;
+plot(row,col, '.', 'MarkerSize', 30, 'LineWidth', 2);
 
 
 disp("fin del programa")
