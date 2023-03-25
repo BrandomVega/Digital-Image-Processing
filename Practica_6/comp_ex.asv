@@ -1,0 +1,18 @@
+function [resultante] = comp_ex(matriz)
+    [m,n] = size(matriz);
+    [funMin, funMax] = bounds(matriz, "all");
+    max = 0;
+    min = 9;
+
+    disp(funMin);disp(funMax);disp(max);disp(min)
+
+    resultante = zeros(size(matriz));
+
+    for i=1:n
+        for j=1:m
+            resultante(i,j) = (((matriz(i,j) - funMin)/(funMax - funMin))*(max-min))+min;
+            disp(/)
+        end
+    end
+
+end
